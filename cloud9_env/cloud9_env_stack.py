@@ -56,7 +56,7 @@ class Cloud9EnvStack(Stack):
 
             # the properties below are optional
             automatic_stop_time_minutes=123,
-            connection_type="CONNECT_SSH",
+            connection_type="CONNECT_SSM",
             description="cloud9-cdk-test",
             image_id="amazonlinux-2-x86_64",
             name="test",
