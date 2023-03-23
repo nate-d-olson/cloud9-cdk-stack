@@ -110,7 +110,7 @@ class Cloud9EnvStack(Stack):
             description="cloud9-cdk-test",
             # image_id="amazonlinux-2-x86_64",
             ## Is this where/ how to create the EC2 environment with appropriate roles 
-            # owner_arn="????",
+            owner_arn=instance_role.role_arn,
             name="test",
             subnet_id="subnet-041b548dc227975b3",
         )
