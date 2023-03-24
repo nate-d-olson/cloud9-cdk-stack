@@ -64,6 +64,11 @@ class Cloud9EnvStack(Stack):
         ssmdoc_role_perm.add_actions("ssm:StartSession")
         ssmdoc_role_perm.add_resources("arn:aws:ssm:*:*:document/*")
 
+        ## Added in an attempt to address "API: ec2:RunInstances You are not authorized to perform this operation." error
+        # ec2_role_perm = iam.PolicyStatement()
+        # ec2_role_perm.add_actions("ec2:RunInstances")
+        # ec2_role_perm.add_resources("*")
+
         ## Creating roles for instance with AWSCloud9 instance policy
         instance_role = iam.Role(
             self,
@@ -83,7 +88,8 @@ class Cloud9EnvStack(Stack):
         instance_role.add_to_policy(c9resource_role_perm)
         instance_role.add_to_policy(ssmec2_role_perm)
         instance_role.add_to_policy(ssmdoc_role_perm)
-
+        #instance_role.add_to_policy(ec2_role_perm)
+        
         ## Not sure where or if I need to add these policies
         # cloud9_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("AWSCloud9Administrator"))
         # cloud9_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("AWSCloud9User"))
@@ -110,7 +116,7 @@ class Cloud9EnvStack(Stack):
             description="cloud9-cdk-test",
             # image_id="amazonlinux-2-x86_64",
             ## Is this where/ how to create the EC2 environment with appropriate roles 
-            owner_arn=instance_role.role_arn,
+            # owner_arn=???
             name="test",
             subnet_id="subnet-041b548dc227975b3",
         )
